@@ -7,7 +7,10 @@
   <groupId>com.tu.sso</groupId>
   <artifactId>sso</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>war</packaging>
+  <modules>
+    <module>sso-app</module>
+  </modules>
+  <packaging>pom</packaging>
 
   <name>sso Maven Webapp</name>
   <!-- FIXME change it to the project's website -->
