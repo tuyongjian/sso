@@ -86,8 +86,18 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 .allowFormAuthenticationForClients();
     }
 
+    //访问http://localhost:1234/oauth/token
+    //grant_type=password
+    //scope=all
+    //client_id=client_2
+    //client_secret=123456
+    //username=xxx
+    //password=xxx
+    //就可以获得token等参数
+
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        //密码模式
         clients.inMemory()
                 .withClient("client_2")
                 .authorizedGrantTypes("password", "refresh_token")

@@ -20,24 +20,12 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     private static final String RESOURCE_ID = "*";
 
 
-    @Autowired
-    CustomAccessDecisionManager decisionManager;
-
-    @Autowired
-    CustomFilterInvocationSecurityMetadataSource customFilterInvocationSecurityMetadataSource;
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {
         resources.resourceId(RESOURCE_ID);
     }
 
-    @Bean
-    public FilterSecurityInterceptor filterSecurityInterceptor() {
-        FilterSecurityInterceptor filterSecurityInterceptor = new FilterSecurityInterceptor();
-        filterSecurityInterceptor.setAccessDecisionManager(decisionManager);
-        filterSecurityInterceptor.setSecurityMetadataSource(customFilterInvocationSecurityMetadataSource);
-        return filterSecurityInterceptor;
-    }
 
     @Override
     public void configure(HttpSecurity http) throws Exception{
