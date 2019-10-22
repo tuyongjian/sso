@@ -7,7 +7,8 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 /**
  * @Auther: tuyongjian
  * @Date: 2019/10/22 14:31
- * @Description: exclude = {SecurityAutoConfiguration.class }可以禁用security安全认证
+ * @Description: 客户端
+ * exclude = {SecurityAutoConfiguration.class }可以禁用security安全认证
  */
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class })
 public class SsoClientApplication {
