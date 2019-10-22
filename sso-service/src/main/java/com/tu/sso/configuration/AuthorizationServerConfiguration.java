@@ -95,7 +95,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     //password=xxx
     //就可以获得token等参数
 
-    @Override
+   /* @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         //密码模式
         clients.inMemory()
@@ -106,7 +106,22 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 .secret(passwordEncoder().encode("123456"))
                 .accessTokenValiditySeconds(60 * 30)
                 .refreshTokenValiditySeconds(60 * 60);
-    }
+    }*/
 
+
+   //授权码模式
+    @Override
+    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        //密码模式
+        clients.inMemory()
+                .withClient("client_2")
+                .authorizedGrantTypes("authorization_code", "refresh_token")
+                .scopes("all")
+                .authorities("ROLE_APP")
+                .secret(passwordEncoder().encode("123456"))
+                .redirectUris("http://localhost:1235/ssoClient/index/redirect")
+                .accessTokenValiditySeconds(60 * 30)
+                .refreshTokenValiditySeconds(60 * 60);
+    }
 
  }
