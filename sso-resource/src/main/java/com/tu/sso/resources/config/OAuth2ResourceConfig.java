@@ -44,11 +44,7 @@ public class OAuth2ResourceConfig extends ResourceServerConfigurerAdapter {
              //OPTIONS请求不需要鉴权
              .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
              //用户的增删改接口只允许管理员访问
-             .antMatchers(HttpMethod.POST, "/api/test").hasAnyAuthority("ROLE_ADMIN")
-             .antMatchers(HttpMethod.PUT, "/auth/user").hasAnyAuthority("ROLE_ADMIN")
-             .antMatchers(HttpMethod.DELETE, "/auth/user").hasAnyAuthority("ROLE_ADMIN")
-             //获取角色 权限列表接口只允许系统管理员及高级用户访问
-             .antMatchers(HttpMethod.GET, "/auth/role").hasAnyAuthority("ROLE_ADMIN")
+             .antMatchers(HttpMethod.POST, "/api/*").hasAnyAuthority("ROLE_ADMIN")
              //其余接口没有角色限制，但需要经过认证，只要携带token就可以放行
              .anyRequest()
              .authenticated();
