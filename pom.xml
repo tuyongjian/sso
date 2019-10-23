@@ -8,11 +8,9 @@
   <artifactId>sso</artifactId>
   <version>1.0-SNAPSHOT</version>
   <modules>
-    <module>sso-app</module>
+    <module>sso-server</module>
     <module>sso-model</module>
     <module>sso-dao</module>
-    <module>sso-controller</module>
-    <module>sso-service</module>
     <module>sso-client</module>
       <module>sso-resource</module>
   </modules>
