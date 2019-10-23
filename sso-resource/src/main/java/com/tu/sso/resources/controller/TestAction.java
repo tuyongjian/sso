@@ -10,17 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
  * @Description:资源服务器的资源
  */
 @RestController
-@RequestMapping(value = "/api")
-public class SourceAction {
+@RequestMapping(value = "/test")
+public class TestAction {
 
 
-    @RequestMapping(value = "/test",method =RequestMethod.GET)
+    @RequestMapping(value = "/test",method = RequestMethod.GET)
     public String test(){
-        return "hello world";
+        return "hello world-----";
     }
 
-    @RequestMapping(value = "/aa",method = {RequestMethod.GET})
-    public String aa(){
-        return "hello world!!!";
-    }
 }

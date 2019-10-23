@@ -2,7 +2,7 @@ package com.tu.sso.client.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.codec.binary.Base64;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -103,8 +103,8 @@ public class SsoClientAction {
         refreshTokenUrl.append("&refresh_token=");
         refreshTokenUrl.append(refreshToken);
 
-        ResponseEntity<String> refreshTokenResponse  = restTemplate.exchange(refreshTokenUrl.toString(), HttpMethod.POST, new HttpEntity<>(null, headers), String.class);
-        logger.info("refreshToken response-----"+refreshTokenResponse.getBody());
+       // ResponseEntity<String> refreshTokenResponse  = restTemplate.exchange(refreshTokenUrl.toString(), HttpMethod.POST, new HttpEntity<>(null, headers), String.class);
+        //logger.info("refreshToken response-----"+refreshTokenResponse.getBody());
         return response;
     }
 
