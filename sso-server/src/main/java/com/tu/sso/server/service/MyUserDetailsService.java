@@ -1,5 +1,6 @@
 package com.tu.sso.server.service;
 
+import com.tu.sso.model.Role;
 import com.tu.sso.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,6 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @Auther: tuyongjian
@@ -19,6 +22,10 @@ public class MyUserDetailsService implements UserDetailsService {
     @Autowired
     private IUserService userService;
 
+    @Autowired
+    private IRoleService roleService;
+
+
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
 
@@ -28,6 +35,11 @@ public class MyUserDetailsService implements UserDetailsService {
         if(user==null){
             throw new UsernameNotFoundException("user not found");
         }
+
+        Role role = new Role();
+        role.setUserId(user.getId());
+        List<Role> roles =  roleService.queryRole(role);
+        user.setAuthorities(roles);
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         return user;
     }

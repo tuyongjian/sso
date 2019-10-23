@@ -1,13 +1,10 @@
 package com.tu.sso.model;
 
-import com.google.common.collect.Sets;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.List;
 
 /**
  * @Auther: tuyongjian
@@ -21,12 +18,12 @@ public class User implements  UserDetails {
     private String password;
     private String userName;
     private String realName;
-    private Set<String> authorities = Sets.newHashSet();
+    private List<Role> authorities;
 
     //权限列表
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.authorities.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toSet());
+        return authorities;
     }
 
     //获取密码
@@ -93,7 +90,7 @@ public class User implements  UserDetails {
         this.realName = realName;
     }
 
-    public void setAuthorities(Set<String> authorities) {
+    public void setAuthorities(List<Role> authorities) {
         this.authorities = authorities;
     }
 }
