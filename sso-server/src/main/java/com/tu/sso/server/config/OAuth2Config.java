@@ -47,7 +47,7 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
                 //这个随便配了一个，暂时没用到
                 .scopes("read","write","del","userinfo")
                 .redirectUris("http://localhost:1235/ssoClient/authCodeCallback")
-                .accessTokenValiditySeconds(30*60);
+                .accessTokenValiditySeconds(30*60);//30*60s过期
     }
 
     //配置 Token 的节点 和 Token 服务

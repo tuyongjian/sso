@@ -103,18 +103,25 @@ public class SsoClientAction {
         refreshTokenUrl.append("&refresh_token=");
         refreshTokenUrl.append(refreshToken);
 
-       // ResponseEntity<String> refreshTokenResponse  = restTemplate.exchange(refreshTokenUrl.toString(), HttpMethod.POST, new HttpEntity<>(null, headers), String.class);
-        //logger.info("refreshToken response-----"+refreshTokenResponse.getBody());
+        ResponseEntity<String> refreshTokenResponse  = restTemplate.exchange(refreshTokenUrl.toString(), HttpMethod.POST, new HttpEntity<>(null, headers), String.class);
+        logger.info("refreshToken response-----"+refreshTokenResponse.getBody());
         return response;
     }
 
 
     @GetMapping("/test")
-    public String test(HttpServletRequest request) {
+    public Object test(HttpServletRequest request,
+                       @RequestParam(value = "access_token")String access_token) {
         RestTemplate restTemplate = new RestTemplate();
-        String url ="http://localhost:1236/api/test";
-        ResponseEntity<String> refreshTokenResponse  = restTemplate.exchange(url, HttpMethod.GET,null, String.class);
-        return refreshTokenResponse.getBody();
+        String auth_Str = clientId + ":" + "123456";
+        byte[] encodedAuth = Base64.encodeBase64(auth_Str.getBytes(Charset.forName("US-ASCII")));
+        String authHeader = "Basic " + new String(encodedAuth);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("authorization", authHeader);
+        String url ="http://localhost:1236/api/test?access_token="+access_token;
+        logger.info("url---"+url);
+        ResponseEntity<String> refreshTokenResponse  = restTemplate.exchange(url, HttpMethod.GET,new HttpEntity<>(null, headers), String.class);
+        return refreshTokenResponse;
     }
 
 }

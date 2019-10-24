@@ -10,9 +10,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @MapperScan(value = {"com.tu.sso.dao"})
-class SsoServerlication {
+class SsoServerApplication {
     public static void main( String[] args )
     {
-        SpringApplication.run(SsoServerlication.class);
+        SpringApplication.run(SsoServerApplication.class);
     }
 }

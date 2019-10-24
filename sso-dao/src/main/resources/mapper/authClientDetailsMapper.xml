@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tu.sso.dao.AuthClientDetailsDao" >
+    <resultMap id="UserResultMap" type="com.tu.sso.model.AuthClientDetails" >
+        <id column="id" property="id" javaType="int" jdbcType="INTEGER" />
+        <result column="clientId" property="clientId" javaType="String" jdbcType="VARCHAR" />
+        <result column="clientSecret" property="clientSecret" javaType="String" jdbcType="VARCHAR" />
+        <result column="resourceIds" property="resourceIds" javaType="String" jdbcType="VARCHAR" />
+        <result column="scopes" property="scopes" javaType="String" jdbcType="VARCHAR" />
+        <result column="authorizedGrantTypes" property="authorizedGrantTypes" javaType="String" jdbcType="VARCHAR" />
+        <result column="webServerRedirectUris" property="webServerRedirectUris" javaType="String" jdbcType="VARCHAR" />
+        <result column="authorities" property="authorities" javaType="String" jdbcType="VARCHAR" />
+        <result column="accessTokenValidity" property="accessTokenValidity" javaType="String" jdbcType="VARCHAR" />
+        <result column="refreshTokenValidity" property="refreshTokenValidity" javaType="String" jdbcType="VARCHAR" />
+        <result column="additionalInformation" property="additionalInformation" javaType="String" jdbcType="VARCHAR" />
+        <result column="autoApprove" property="autoApprove" javaType="String" jdbcType="VARCHAR" />
+        <result column="valid" property="valid" javaType="Boolean" jdbcType="TINYINT" />
+    </resultMap>
+
+
+
+
+
+
+
+
+</mapper>

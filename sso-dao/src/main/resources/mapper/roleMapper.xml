@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tu.sso.dao.RoleDao" >
-    <resultMap id="UserResultMap" type="com.tu.sso.model.Role" >
+    <resultMap id="RoleResultMap" type="com.tu.sso.model.Role" >
         <id column="id" property="id" javaType="int" jdbcType="INTEGER" />
         <result column="user_id" property="userId" javaType="int" jdbcType="INTEGER" />
         <result column="role_name" property="roleName" javaType="String" jdbcType="VARCHAR" />
@@ -19,7 +19,7 @@
     </sql>
 
 
-    <select id="selectRole" resultMap="UserResultMap" parameterType="com.tu.sso.model.Role">
+    <select id="selectRole" resultMap="RoleResultMap" parameterType="com.tu.sso.model.Role">
         select *
         from ROLE
        <include refid="selectSql"/>

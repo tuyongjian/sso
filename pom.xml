@@ -13,6 +13,7 @@
     <module>sso-dao</module>
     <module>sso-client</module>
       <module>sso-resource</module>
+      <module>sso-common</module>
   </modules>
   <packaging>pom</packaging>
 
