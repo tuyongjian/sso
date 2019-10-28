@@ -1,5 +1,6 @@
 package com.tu.sso.server.config;
 
+import com.tu.sso.server.service.MyClientDetailsService;
 import com.tu.sso.server.service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -32,11 +33,14 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
     @Autowired
     private MyUserDetailsService myUserDetailsService;
 
+    @Autowired
+    private MyClientDetailsService myClientDetailsService;
+
     //配置客户端信息
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         //这里直接把配置信息保存在内存中
-        clients.inMemory()
+       /* clients.inMemory()
                 .withClient("ssoClient")
                 //这里必须使用加密
                 .secret(new BCryptPasswordEncoder().encode("123456"))
@@ -47,7 +51,9 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
                 //这个随便配了一个，暂时没用到
                 .scopes("read","write","del","userinfo")
                 .redirectUris("http://localhost:1235/ssoClient/authCodeCallback")
-                .accessTokenValiditySeconds(30*60);//30*60s过期
+                .accessTokenValiditySeconds(30*60);//30*60s过期*/
+       //基于数据库
+        clients.withClientDetails(myClientDetailsService);
     }
 
     //配置 Token 的节点 和 Token 服务
