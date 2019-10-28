@@ -1,6 +1,7 @@
 package com.tu.sso.server.service;
 
 import com.tu.sso.model.AuthClientDetails;
+import com.tu.sso.model.MyClientDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
