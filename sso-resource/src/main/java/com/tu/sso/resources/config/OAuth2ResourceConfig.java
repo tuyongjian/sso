@@ -58,9 +58,9 @@ public class OAuth2ResourceConfig extends ResourceServerConfigurerAdapter {
              .antMatchers("/oauth/*", "/auth/user/login").permitAll()
              //OPTIONS请求不需要鉴权
              .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-             //用户的增删改接口只允许管理员访问
-             .antMatchers(HttpMethod.POST, "/api/*").hasAuthority("RULE_APP")
-             .antMatchers(HttpMethod.POST,"/test/*").hasAuthority("RULE_ADMIN")
+              //这里限制接口的scope对应的就是server端里设置的scope参数
+             .antMatchers(HttpMethod.GET, "/api/*").access("#oauth2.hasScope('write')")
+             .antMatchers(HttpMethod.GET,"/test/*").access("#oauth2.hasScope('test')")
              //其余接口没有角色限制，但需要经过认证，只要携带token就可以放行
              .anyRequest()
              .authenticated();

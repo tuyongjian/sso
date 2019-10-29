@@ -43,6 +43,7 @@
     <logger name="org.springframework" level="INFO"/>
     <!--加上这一局可以打印出sql日志 或者把root level 设置为dubug级别都可以-->
     <logger name="com.tu.sso.dao.UserDao" level="DEBUG"></logger>
+    <logger name="com.tu.sso.dao.AuthClientDetailsDao" level="DEBUG"></logger>
 
     <!-- 日志输出级别 -->
     <root level="info">

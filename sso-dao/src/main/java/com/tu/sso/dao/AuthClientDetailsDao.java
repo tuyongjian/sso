@@ -1,5 +1,6 @@
 package com.tu.sso.dao;
 
+import com.tu.sso.model.AuthClientDetails;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -11,4 +12,6 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository
 public interface AuthClientDetailsDao {
+
+    AuthClientDetails selectClientDetailsByClientId(String clientId);
 }

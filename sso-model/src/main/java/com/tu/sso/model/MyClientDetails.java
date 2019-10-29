@@ -3,6 +3,7 @@ package com.tu.sso.model;
 import com.tu.sso.common.util.CommonUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.provider.ClientDetails;
 
 import java.util.*;
@@ -62,7 +63,8 @@ public class MyClientDetails implements ClientDetails {
      */
     @Override
     public String getClientSecret() {
-        return client.getClientSecret();
+        //这里因为用户的密码进行了加密，所以这里也要进行加密
+        return new BCryptPasswordEncoder().encode(client.getClientSecret());
     }
 
     /**
