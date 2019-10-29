@@ -60,7 +60,8 @@ public class OAuth2ResourceConfig extends ResourceServerConfigurerAdapter {
              .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
               //这里限制接口的scope对应的就是server端里设置的scope参数
              .antMatchers(HttpMethod.GET, "/api/*").access("#oauth2.hasScope('write')")
-             .antMatchers(HttpMethod.GET,"/test/*").access("#oauth2.hasScope('test')")
+                //这个接口是允许角色为ROLE_APP的访问，相对应的是Role表的role_name
+             .antMatchers(HttpMethod.GET,"/test/*").hasRole("APP")
              //其余接口没有角色限制，但需要经过认证，只要携带token就可以放行
              .anyRequest()
              .authenticated();
