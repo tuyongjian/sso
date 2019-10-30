@@ -1,5 +1,7 @@
 package com.tu.sso.resources.config;
 
+import com.tu.sso.resources.handle.MyAccessDeniedHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -14,6 +16,8 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
+import javax.annotation.Resource;
+
 /**
  * @Auther: tuyongjian
  * @Date: 2019/10/23 16:30
@@ -23,6 +27,9 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 @EnableResourceServer
 public class OAuth2ResourceConfig extends ResourceServerConfigurerAdapter {
 
+
+    @Resource
+    private MyAccessDeniedHandler myAccessDeniedHandler;
 
     @Primary
     @Bean
@@ -55,16 +62,18 @@ public class OAuth2ResourceConfig extends ResourceServerConfigurerAdapter {
              //请求权限配置
              .authorizeRequests()
              //下边的路径放行,不需要经过认证
-             .antMatchers("/oauth/*", "/auth/user/login").permitAll()
+             .antMatchers("/oauth/*", "/auth/user/login","/favicon.ico").permitAll()
              //OPTIONS请求不需要鉴权
              .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
               //这里限制接口的scope对应的就是server端里设置的scope参数
              .antMatchers(HttpMethod.GET, "/api/*").access("#oauth2.hasScope('write')")
-                //这个接口是允许角色为ROLE_APP的访问，相对应的是Role表的role_name
-             .antMatchers(HttpMethod.GET,"/test/*").hasRole("APP")
+              //这个接口是允许角色为ROLE_APP的访问，相对应的是Role表的role_name
+             .antMatchers(HttpMethod.GET,"/test/*").hasRole("TEST")
              //其余接口没有角色限制，但需要经过认证，只要携带token就可以放行
              .anyRequest()
              .authenticated();
+        //自定义拒绝访问处理器
+        http.exceptionHandling().accessDeniedHandler(myAccessDeniedHandler);
 
     }
 
