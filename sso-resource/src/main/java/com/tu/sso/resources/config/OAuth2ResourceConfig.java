@@ -1,20 +1,17 @@
 package com.tu.sso.resources.config;
 
+import com.tu.sso.resources.handle.AuthExceptionEntryPoint;
 import com.tu.sso.resources.handle.MyAccessDeniedHandler;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
-import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 import javax.annotation.Resource;
 
@@ -28,8 +25,13 @@ import javax.annotation.Resource;
 public class OAuth2ResourceConfig extends ResourceServerConfigurerAdapter {
 
 
+    //自定义权限拒绝处理器
     @Resource
     private MyAccessDeniedHandler myAccessDeniedHandler;
+
+    //自定义token失败处理器
+    @Resource
+    private AuthExceptionEntryPoint authExceptionEntryPoint;
 
     @Primary
     @Bean
@@ -42,18 +44,6 @@ public class OAuth2ResourceConfig extends ResourceServerConfigurerAdapter {
     }
 
 
-    @Bean
-    public TokenStore tokenStore() {
-        return new JwtTokenStore(jwtAccessTokenConverter());
-    }
-
-    //与授权服务器使用共同的密钥进行解析
-    @Bean
-    public JwtAccessTokenConverter jwtAccessTokenConverter() {
-        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey("123456");
-        return converter;
-    }
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
@@ -75,6 +65,12 @@ public class OAuth2ResourceConfig extends ResourceServerConfigurerAdapter {
         //自定义拒绝访问处理器
         http.exceptionHandling().accessDeniedHandler(myAccessDeniedHandler);
 
+    }
+
+    @Override
+    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+        resources.authenticationEntryPoint(authExceptionEntryPoint); // token失效处理器
+        //resources.resourceId("manager"); // 设置资源id  通过client的 resource_ids 来判断是否具有资源权限  资源不存在会报Invalid token does not contain resource id (manager)
     }
 
 }
