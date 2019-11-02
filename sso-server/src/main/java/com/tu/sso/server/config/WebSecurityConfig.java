@@ -1,5 +1,6 @@
 package com.tu.sso.server.config;
 
+import com.tu.sso.server.handle.MyAccessDeniedHandler;
 import com.tu.sso.server.service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -28,6 +29,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     MyUserDetailsService userServiceDetail;
 
+    @Autowired
+    private MyAccessDeniedHandler myAccessDeniedHandler;//拒绝访问器
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //  允许所有人访问 '/oauth' 以下的目录
@@ -40,6 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**").authenticated()    //其他目录需要认证
                 .and()
                 .httpBasic();                          //开启基本http验证
+        http.exceptionHandling().accessDeniedHandler(myAccessDeniedHandler);//拒绝访问器
     }
 
     //忽略校验的内容
